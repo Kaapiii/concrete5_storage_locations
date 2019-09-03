@@ -14,6 +14,7 @@ class Controller extends Package
     protected $appVersionRequired = '8.0.0';
     protected $pkgVersion = '0.0.1';
 
+    protected $pkgAutoloaderMapCoreExtensions = true;
 
     public function getPackageDescription()
     {
@@ -27,9 +28,9 @@ class Controller extends Package
 
     public function install()
     {
-        $pkg = praent::install();
+        $pkg = parent::install();
 
-        StorageLocationType::add('aws_s3', 'Amazon S3', $pkg);
+        StorageLocationType::add('aws_s3', 'Amazon S3 (Kaapiii)', $pkg);
         //StorageLocationType::add('google_cloud_storage', 'Google Cloud Storage', $pkg);
     }
 }
