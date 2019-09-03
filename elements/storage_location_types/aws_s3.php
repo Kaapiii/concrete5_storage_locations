@@ -55,6 +55,6 @@ if (is_object($configuration)) {
     </div>
     <div class="form-group">
         <label for="version"><?= t('AWS S3 API Version');?></label>
-        <?= $form->select('storageLocationConfig[region]', $versions, $version);?>
+        <?= $form->select('storageLocationConfig[version]', $versions, $version);?>
     </div>
 </fieldset>

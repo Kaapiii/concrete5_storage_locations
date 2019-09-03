@@ -1,6 +1,6 @@
 <?php
 
-namespace Concrete\Package\Concrete5StorageLocations\Src\File\StorageLocation\Configuration;
+namespace Concrete\Package\Concrete5StorageLocations\File\StorageLocation\Configuration;
 
 use Aws\S3\S3Client;
 use Concrete\Core\File\StorageLocation\Configuration\ConfigurationInterface;
@@ -138,6 +138,8 @@ class AwsS3Configuration extends Configuration implements ConfigurationInterface
             $error->add(t('Please provide a AWS S3 access key'));
         } else if(!$this->secret) {
             $error->add(t('Please provide a AWS S3 secret key.'));
+        } else if(!$this->version) {
+            $error->add(t('Please provide a AWS S3 API version.'));
         }
     }
 
@@ -215,8 +217,8 @@ class AwsS3Configuration extends Configuration implements ConfigurationInterface
     public function getApiVersions()
     {
         $version = array(
+            "2006-03-01"    => "2006-03-01 (default)",
             "latest"        => "latest",
-            "2006-03-01"    => "2006-03-01",
         );
         return $version;
     }
