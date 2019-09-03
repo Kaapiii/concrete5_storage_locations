@@ -29,18 +29,21 @@ if (is_object($configuration)) {
         <label for="accesskey"><?= t('Access key');?></label>
         <div class="input-group">
             <?= $form->text('storageLocationConfig[accessKey]', $accessKey, array('placeholder' => t('Access key')));?>
+            <span class="input-group-addon"><i class="fa fa-asterisk"></i></span>
         </div>
     </div>
     <div class="form-group">
         <label for="secret"><?= t('Secret key');?></label>
         <div class="input-group">
             <?= $form->text('storageLocationConfig[secret]', $secret, array('placeholder' => t('Secret key')));?>
+            <span class="input-group-addon"><i class="fa fa-asterisk"></i></span>
         </div>
     </div>
     <div class="form-group">
         <label for="bucket-name"><?=t('Bucket name')?></label>
         <div class="input-group">
             <?= $form->text('storageLocationConfig[bucketName]', $bucketName, array('placeholder' => t('Bucket name')))?>
+            <span class="input-group-addon"><i class="fa fa-asterisk"></i></span>
         </div>
     </div>
 </fieldset>
