@@ -31,7 +31,7 @@ Installation
 Preparations
 ---------------------------
 
-###Google Cloud Storage
+### Google Cloud Storage
 
 Make the following steps either in the web console or copy and paste the commands below to your cloud shell.
 
