@@ -1,18 +1,21 @@
 <?php
 
+/** @var  $form \Concrete\Core\Form\Service\Form*/
 $form = Loader::helper('form');
 
-/** @var $configuration \Concrete\Package\Concrete5StorageLocations\Src\File\StorageLocation\Configuration\GoogleCloudStorageConfiguration */
+/** @var $configuration \Concrete\Package\Concrete5StorageLocations\File\StorageLocation\Configuration\GoogleCloudStorageConfiguration */
 if (is_object($configuration)) {
 
     $projectId = $configuration->getProjectId();
     $bucketName = $configuration->getBucketName();
-    $keyfile= $configuration->getKeyFile();
+    $keyFile = $configuration->getKeyFile();
+    $customDomain = $configuration->getCustomDomain();
 
 } else {
     $projectId = '';
     $bucketName = '';
-    $keyfile = '';
+    $keyFile = '';
+    $customDomain = '';
 
 }
 ?>
@@ -34,12 +37,22 @@ if (is_object($configuration)) {
     <div class="form-group">
         <label for="bucket-name"><?=t('Keyfile.json')?></label>
         <div class="input-group">
-            <?= $form->textarea('storageLocationConfig[keyFile]', $keyfile,
+            <?= $form->textarea('storageLocationConfig[keyFile]', $keyFile,
                 array(
                     'placeholder' => t('Content of the keyfile.json'),
                     'style' => 'height: 200px;',
                 )
             )?>
+            <span class="input-group-addon"><i class="fa fa-asterisk"></i></span>
+        </div>
+    </div>
+</fieldset>
+<fieldset>
+    <legend><?= t('Optional settings') ;?></legend>
+    <div class="form-group">
+        <label for="bucket-domain"><?=t('Custom domain or subdomain')?></label>
+        <div class="input-group">
+            <?= $form->text('storageLocationConfig[customDomain]', $customDomain, array('placeholder' => t('files.example.com')))?>
             <span class="input-group-addon"><i class="fa fa-asterisk"></i></span>
         </div>
     </div>

@@ -19,14 +19,14 @@ class GoogleCloudStorageConfiguration extends Configuration implements Configura
      *
      * @var string
      */
-    protected $projectId;
+    private $projectId;
 
     /**
      * Bucket name
      *
      * @var string
      */
-    protected $bucketName;
+    private $bucketName;
 
     /**
      * Json key file
@@ -35,7 +35,15 @@ class GoogleCloudStorageConfiguration extends Configuration implements Configura
      *
      * @var string
      */
-    protected $keyfile;
+    private $keyFile;
+
+    /**
+     * Custom domain for file urls
+     *
+     * @var string
+     */
+    private $customDomain;
+
 
     /**
      * Get the google storage adapter
@@ -46,7 +54,7 @@ class GoogleCloudStorageConfiguration extends Configuration implements Configura
     {
         $storageClient = new StorageClient([
             'projectId' => $this->getProjectId(),
-            'keyFile' => json_decode($this->getKeyFile()),
+            'keyFile' => json_decode($this->getKeyFile(), true),
         ]);
         $bucket = $storageClient->bucket($this->getBucketName());
 
@@ -55,24 +63,42 @@ class GoogleCloudStorageConfiguration extends Configuration implements Configura
         return $adapter;
     }
 
+    /**
+     * @return bool
+     */
     public function hasPublicURL()
     {
-        // TODO: Implement hasPublicURL() method.
+        return true;
     }
 
+    /**
+     * @param string $file
+     * @return string
+     */
     public function getPublicURLToFile($file)
     {
-        // TODO: Implement getPublicURLToFile() method.
+        return $this->buildPublicFileUrl($file);
     }
 
+    /**
+     * Needs to be true, otherwise the thumbnails won't show up in the file manager
+     *
+     * @return bool
+     */
     public function hasRelativePath()
     {
-        // TODO: Implement hasRelativePath() method.
+        return true;
     }
 
+    /**
+     * Relative paths needs to be prefixed with external url
+     *
+     * @param string $file
+     * @return string
+     */
     public function getRelativePathToFile($file)
     {
-        // TODO: Implement getRelativePathToFile() method.
+        return $this->buildPublicFileUrl($file);
     }
 
     /**
@@ -86,7 +112,8 @@ class GoogleCloudStorageConfiguration extends Configuration implements Configura
 
         $this->projectId = $config['projectId'];
         $this->bucketName = $config['bucketName'];
-        $this->keyfile = $config['keyFile'];
+        $this->keyFile = $config['keyFile'];
+        $this->customDomain = $config['customDomain'];
     }
 
     /**
@@ -103,30 +130,70 @@ class GoogleCloudStorageConfiguration extends Configuration implements Configura
 
         $this->projectId = $config['projectId'];
         $this->bucketName = $config['bucketName'];
-        $this->keyfile = $config['keyFile'];
+        $this->keyFile = $config['keyFile'];
+        $this->customDomain = $config['customDomain'];
 
         // Check for required settings
         if(!$this->projectId) {
             $error->add(t('Please provide the project id.'));
         } else if(!$this->bucketName) {
             $error->add(t('Please provide the bucket name.'));
-        } else if(!$this->keyfile) {
-            $error->add(t('Please provide the content of the keyfile.json from the GCP service account.'));
+        } else if(!$this->keyFile) {
+            $error->add(t('Please provide the content of the keyfile.json from a GCP service account.'));
         }
     }
 
+    public function buildPublicFileUrl($file)
+    {
+        if($this->getCustomDomain()){
+            # Custom domain URL
+            $cleanCustomUrl = trim(preg_replace('(^https?://)','', $this->getCustomDomain()), '/');
+
+            $url = 'https://' . $cleanCustomUrl . $file;
+        } else {
+            # Default URL
+            $url = 'https://storage.cloud.google.com/'.$this->getBucketName().$file;
+        }
+        return $url;
+    }
+
+    /**
+     * Get project id
+     *
+     * @return string
+     */
     public function getProjectId()
     {
         return $this->projectId;
     }
 
+    /**
+     * Get bucket name
+     *
+     * @return string
+     */
     public function getBucketName()
     {
         return $this->bucketName;
     }
 
+    /**
+     * Get key file content
+     *
+     * @return string
+     */
     public function getKeyFile()
     {
-        return $this->keyfile;
+        return $this->keyFile;
+    }
+
+    /**
+     * Get custom domain
+     *
+     * @return string
+     */
+    public function getCustomDomain()
+    {
+        return $this->customDomain;
     }
 }
