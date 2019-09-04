@@ -15,7 +15,7 @@ class Controller extends Package
 {
     protected $pkgHandle = 'concrete5_storage_locations';
     protected $appVersionRequired = '8.0.0';
-    protected $pkgVersion = '0.2';
+    protected $pkgVersion = '0.3';
 
     protected $pkgAutoloaderMapCoreExtensions = true;
 
