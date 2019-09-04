@@ -229,10 +229,6 @@ class AwsS3Configuration extends Configuration implements ConfigurationInterface
      */
     protected function getBucketUrl()
     {
-
-        //https://mbt-public-media.s3.eu-central-1.amazonaws.com/3815/6754/1588/berg_card_img1.jpg
-        //https://mbt-public-media.s3.eu-central-1.amazonaws.com/3815/6754/1588/berg_card_img1.jpg
-
         return 'https://'.$this->bucketName.'.s3.'.($this->region ? $this->region : '').'.amazonaws.com';
     }
 }
