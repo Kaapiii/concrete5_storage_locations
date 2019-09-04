@@ -73,21 +73,39 @@ class AwsS3Configuration extends Configuration implements ConfigurationInterface
         return new AwsS3Adapter($client, $bucket);
     }
 
+    /**
+     * @return bool
+     */
     public function hasPublicURL()
     {
         return true;
     }
 
+    /**
+     * @param string $file
+     * @return string
+     */
     public function getPublicURLToFile($file)
     {
         return $this->getBucketUrl().$file;
     }
 
+    /**
+     * Needs to be true, otherwise the thumbnails won't show up in the file manager
+     *
+     * @return bool
+     */
     public function hasRelativePath()
     {
         return false;
     }
 
+    /**
+     * Relative paths needs to be prefixed with external url
+     *
+     * @param string $file
+     * @return string
+     */
     public function getRelativePathToFile($file)
     {
         return $this->getBucketUrl().$file;
