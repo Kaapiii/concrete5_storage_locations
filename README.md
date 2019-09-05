@@ -15,7 +15,7 @@ Installation
    or...
    
    ```
-   composer require kaapiii/concrete5_storage_locations   
+   composer require kaapiii/concrete5_storage_locations
    ```
    
 2. Run the following command from the installation {root} folder
@@ -28,7 +28,7 @@ Installation
 4. Navigate to **System & Settings -> File Storage Locations** and add a new storage location.
 
 
-Preparations
+Cloud Storage preparations
 ---------------------------
 
 ### Google Cloud Storage
@@ -58,11 +58,10 @@ gsutil iam ch allUsers:objectViewer gs://[BUCKET_NAME]
 
 #### Create a service account
 
-Create a service account through the web console with the following two minimum IAM roles:
+Create a service account through the web console with the following minimal IAM role:
 
 (Role title / [role key])
 
-- **Storage Object Creator** / [roles/storage.objectCreator]
-- **Storage Object Viewer** / [roles/storage.objectViewer]
+- **Storage Object Admin** / [roles/storage.objectAdmin]
 
 Create a key in the json format and download the key file.
