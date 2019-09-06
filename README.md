@@ -9,19 +9,19 @@ Installation
 1. Add the following line to line to the 'require' section of the concrete5 composer.json.
 
    ```
-   "kaapiii/concrete5_storage_locations": "^0.1"
+   "kaapiii/concrete5_storage_locations": "^1.0"
    ```
-        
-   or...
-   
-   ```
-   composer require kaapiii/concrete5_storage_locations
-   ```
-   
-2. Run the following command from the installation {root} folder
+      
+   and run ...   
    
    ``` 
    composer install
+   ```
+   
+   or run the following command from the installation {root} folder
+   
+   ```
+   composer require kaapiii/concrete5_storage_locations
    ```
 
 3. Install the package
